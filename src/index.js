@@ -13,7 +13,7 @@ export const initConnection = () => {
     host: POSTGRES_HOST || 'localhost',
     database: POSTGRES_DB || 'postgres',
     password: POSTGRES_PASSWORD || 'postgres',
-    port: POSTGRES_PORT || 5556,
+    port: POSTGRES_PORT || 5432,
   });
 
   return client;
@@ -26,16 +26,19 @@ export const createStructure = async () => {
 
   await client.query(`CREATE TABLE
     users (
-      id serial PRIMARY KEY NOT NULL, name VARCHAR(30) NOT NULL,
+      id serial PRIMARY KEY NOT NULL, 
+      name VARCHAR(30) NOT NULL,
       date DATE DEFAULT(CURRENT_DATE)
     );
   `);
+
   await client.query(`CREATE TABLE 
     categories (
       id serial PRIMARY KEY NOT NULL,
-      name VARCHAR(30) NOT NULL,
+      name VARCHAR(30) NOT NULL
     );
   `);
+
   await client.query(`CREATE TABLE
     books (
       id serial PRIMARY KEY NOT NULL,
@@ -45,6 +48,7 @@ export const createStructure = async () => {
       categoryid INTEGER NOT NULL, FOREIGN KEY(categoryid) REFERENCES categories(id) ON DELETE CASCADE
     );
   `);
+
   await client.query(`CREATE TABLE
     description (
       id serial PRIMARY KEY NOT NULL,
@@ -54,6 +58,7 @@ export const createStructure = async () => {
       ON DELETE CASCADE
     );
   `);
+
   await client.query(`CREATE TABLE
     reviews (
       id serial PRIMARY KEY NOT NULL,
@@ -70,17 +75,22 @@ export const createItems = async () => {
   const client = initConnection();
   client.connect();
 
-  await client.query(`INSERT INTO users (name) VALUES ('Eugene');`);
+  await client.query(`INSERT INTO users (name) 
+  VALUES ('Eugene');`);
 
-  await client.query(`INSERT INTO authors (name) VALUES ('Mark Twain');`);
+  await client.query(`INSERT INTO authors (name) 
+  VALUES ('Mark Twain');`);
 
-  await client.query(`INSERT INTO categories (name) VALUES ('Adventure');`);
+  await client.query(`INSERT INTO categories (name)
+  VALUES ('Adventure');`);
 
-  await client.query(`INSERT INTO books (title, userid, authorid, categoryid) VALUES ('The adventures of Tom Sawyer', 1, 1, 1);`);
+  await client.query(`INSERT INTO books (title, userid, authorid, categoryid) 
+  VALUES ('The adventures of Tom Sawyer', 1, 1, 1);`);
 
-  await client.query(`INSERT INTO descriptions (description ,bookid) VALUES ('Mark Twain's 1876 novel about a boy growing up with his aunt by the Mississippi River', 1);`);
+  await client.query(`INSERT INTO descriptions (description ,bookid) 
+  VALUES ('Mark Twain's 1876 novel about a boy growing up with his aunt by the Mississippi River', 1);`);
 
-  await client.query(`INSERT INTO reviews (message, userid, bookid)
+  await client.query(`INSERT INTO reviews (message, userid, bookid) 
   VALUES ('cool story', 1, 1);`);
   client.end();
 };
