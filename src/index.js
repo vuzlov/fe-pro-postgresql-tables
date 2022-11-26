@@ -57,7 +57,7 @@ export const createStructure = async () => {
   `);
 
   await client.query(`CREATE TABLE
-    description (
+    descriptions (
       id serial PRIMARY KEY NOT NULL,
       description VARCHAR(10000) NOT NULL,
       bookid INTEGER UNIQUE NOT NULL,
