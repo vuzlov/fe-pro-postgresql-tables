@@ -32,7 +32,7 @@ export const createStructure = async () => {
   `);
   await client.query(`CREATE TABLE 
     categories (
-      id serial PRIMERY KEY NOT NULL,
+      id serial PRIMARY KEY NOT NULL,
       name VARCHAR(30) NOT NULL,
     );
   `);
@@ -47,7 +47,7 @@ export const createStructure = async () => {
   `);
   await client.query(`CREATE TABLE
     description (
-      id serial PRIMERY KEY NOT NULL,
+      id serial PRIMARY KEY NOT NULL,
       description VARCHAR(10000) NOT NULL,
       bookid INTEGER UNIQUE NOT NULL,
       FOREIGN KEY(bookid) REFERENCES books (id)
