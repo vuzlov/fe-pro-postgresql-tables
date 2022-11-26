@@ -40,6 +40,13 @@ export const createStructure = async () => {
   `);
 
   await client.query(`CREATE TABLE
+    authors (
+      id serial PRIMARY KEY NOT NULL,
+      name VARCHAR(30) NOT NULL
+    );
+  `);
+
+  await client.query(`CREATE TABLE
     books (
       id serial PRIMARY KEY NOT NULL,
       title VARCHAR(30) NOT NULL,
